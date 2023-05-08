@@ -1,0 +1,122 @@
+{% extends "base.html" %} 
+
+{% block navbar%}
+
+</li>
+<li class="nav-item">
+  <a class="nav-link fw-bold fs-6" href="/login">Sign In</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link fw-bold fs-6" href="/signup">Sign Up</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link fw-bold fs-6" href="/logout">Logout</a>
+</li>
+
+{% endblock%}
+
+{% block title%}
+<!-- <h1>Home Page</h1>
+<div class="row">
+  <div class="mx-auto col-10 col-md-8 col-lg-6" style="text-align: center">
+    {% for note in user.notes %} {% if note.id == note_id%}
+
+    <form method="POST" action="/updatedb/{{note.id}}">
+      <textarea class="form-control" id="notestext" rows="3" name="updatedtext">
+  {{note.data}}</textarea
+      >
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    {% else %}
+
+    <form method="POST" action="/deletenote/{{note.id}}">
+      <div>{{note.data}}</div>
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+    <form method="POST" action="/updatenote/{{note.id}}">
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    {% endif%} {% endfor %}
+    <form method="POST" action="/notesadd">
+      <div class="form-group">
+        <label for="notestext" aria-placeholder="Enter your notes here"></label>
+        <textarea
+          class="form-control"
+          id="notestext"
+          rows="3"
+          name="notestext"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div> -->
+
+<div class="row">
+    <div class="mx-auto col-10 col-md-8 col-lg-6" style="text-align: center">
+      <h1> <u>Add A Note</u></h1>
+  
+      <form method="POST" action="/notesadd" style="padding-bottom: 30px;">
+          <div class="form-group" style="padding-bottom: 5px;">
+            <label for="notestext" aria-placeholder="Enter your notes here"></label>
+            <textarea
+              class="form-control"
+              id="notestext"
+              rows="3"
+              name="notestext"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+  
+        <h2><u>My Notes</u></h2>
+      
+        {% for note in user.notes %}
+        {% if note.id == note_id%}
+        <form
+          method="POST"
+          action="/updatedb/{{note.id}}"
+          style="margin-bottom: 5px"
+          
+        >
+          <div style="margin-bottom: 5px; padding: 5px;">
+            
+            <textarea class="form-control" id="notestext" name="updatedtext" rows="4">{{note.data}}</textarea>
+        
+        </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+        {%else%}
+
+        <form
+        method="POST"
+        action="/deletenote/{{note.id}}"
+        style="margin-bottom: 10px"
+      >
+        <div style="margin-bottom: 5px; padding: 5px;" class="border rounded">{{note.data}}</div>
+        <button type="submit" class="btn btn-primary">Delete</button>
+      </form>
+
+      <form
+        method="GET"
+        action="/updatenote/{{note.id}}"
+        style="margin-bottom: 5px"
+      >
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    
+
+        {%endif%}
+    
+  
+      {% endfor %}
+      
+    </div>
+</div>
+  
+  
+  
+
+{% endblock %}

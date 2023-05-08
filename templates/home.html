@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block navbar%}
+
+<li class="nav-item">
+  <a class="nav-link fw-bold fs-6"> {{user.name}}</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link fw-bold fs-6" href="/logout">Logout</a>
+</li>
+
+{% endblock%} {% block title%}
+
+<div class="row">
+  <div class="mx-auto col-10 col-md-8 col-lg-6" style="text-align: center">
+    <h1><u>Add A Note</u></h1>
+
+    <form method="POST" action="/notesadd" style="padding-bottom: 30px">
+      <div class="form-group" style="padding-bottom: 5px">
+        <label for="notestext" aria-placeholder="Enter your notes here"></label>
+        <textarea
+          class="form-control"
+          id="notestext"
+          rows="3"
+          name="notestext"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h2><u>My Notes</u></h2>
+
+    {% for note in user.notes %}
+    <form
+      method="POST"
+      action="/deletenote/{{note.id}}"
+      style="margin-bottom: 5px"
+    >
+      <div style="margin-bottom: 5px; padding: 5px" class="border rounded">
+        {{note.data}}
+      </div>
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+
+    <form
+      method="GET"
+      action="/updatenote/{{note.id}}"
+      style="margin-bottom: 10px"
+    >
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
